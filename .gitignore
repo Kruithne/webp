@@ -1,0 +1,10 @@
+# This file controls what files are ignored from the git repository.
+
+# third-party dependencies
+node_modules
+
+# typescript declaration files (automatically generated)
+*.d.ts
+
+# bun lockfile
+bun.lockb

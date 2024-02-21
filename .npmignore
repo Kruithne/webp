@@ -1,0 +1,14 @@
+# This file controls what files are ignored from the npm package.
+
+# third-party dependencies
+node_modules
+
+# git/github related
+.gitignore
+.github
+
+# markdown files are used for documentation
+*.md
+
+# ignore bun lockfile
+bun.lockb

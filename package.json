@@ -1,0 +1,11 @@
+{
+	"name": "webp",
+	"type": "module",
+	"version": "1.0.0",
+	"devDependencies": {
+		"@types/bun": "^1.0.6"
+	},
+	"bin": {
+		"webp": "./src/cli.ts"
+	}
+}
