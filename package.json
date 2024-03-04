@@ -1,7 +1,7 @@
 {
 	"name": "webp",
 	"type": "module",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"devDependencies": {
 		"@types/bun": "^1.0.6",
 		"@types/node": "^20.11.19"
