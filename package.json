@@ -3,7 +3,8 @@
 	"type": "module",
 	"version": "1.0.0",
 	"devDependencies": {
-		"@types/bun": "^1.0.6"
+		"@types/bun": "^1.0.6",
+		"@types/node": "^20.11.19"
 	},
 	"bin": {
 		"webp": "./src/cli.ts"
