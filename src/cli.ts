@@ -4,6 +4,9 @@ import path from 'node:path';
 
 const ANSI_RED = '\x1b[31m';
 const ANSI_CYAN = '\x1b[36m';
+const ANSI_GREEN = '\x1b[32m';
+
+const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 function format_colors(text: string, color_code: string): string {
 	return text.replace(/\{(.+?)\}/g, color_code + '$1\x1b[0m');
@@ -15,6 +18,17 @@ function print_error(message: string): void {
 
 function print_info(message: string): void {
 	console.log(format_colors(message, ANSI_CYAN));
+}
+
+function format_data_size(size: number): string {
+	let unit = 0;
+
+	while (size >= 1024) {
+		size /= 1024;
+		unit++;
+	}
+
+	return `${size.toFixed(2)} ${units[unit]}`;
 }
 
 function print_usage(): void {
@@ -131,6 +145,8 @@ for (const input_file of input_files) {
 
 	print_info(`Converting {${input_file}} to {${output_path}}...`);
 
+	const input_stat = fs.statSync(input_file);
+
 	const exif_args = ['exiftool', '-json', '-n', input_file];
 	print_info(`{exiftool} > ${exif_args.join(' ')}`);
 
@@ -232,6 +248,13 @@ for (const input_file of input_files) {
 	const ffmpeg_proc = Bun.spawn(ffmpeg_args, { stdout: std_mode, stderr: std_mode });
 	await ffmpeg_proc.exited;
 
-	if (ffmpeg_proc.exitCode !== 0)
+	if (ffmpeg_proc.exitCode === 0) {
+		const output_stat = fs.statSync(output_path);
+		const delta = output_stat.size / input_stat.size;
+
+		const colour = delta < 1 ? ANSI_GREEN : ANSI_RED;
+		console.log(format_colors(`diff {${format_data_size(input_stat.size)}} > {${format_data_size(output_stat.size)}} ({${(100 - (delta * 100)).toFixed(2)}%})`, colour));
+	} else {
 		print_error(`Failed to convert {${input_file}} (ffmpeg)`);
+	}
 }
