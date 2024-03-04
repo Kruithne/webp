@@ -1,7 +1,7 @@
 {
 	"name": "kru-webp",
 	"type": "module",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"devDependencies": {
 		"@types/bun": "^1.0.6",
 		"@types/node": "^20.11.19"
