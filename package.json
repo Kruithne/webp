@@ -1,5 +1,5 @@
 {
-	"name": "webp",
+	"name": "kru-webp",
 	"type": "module",
 	"version": "1.0.1",
 	"devDependencies": {
